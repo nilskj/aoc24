@@ -1,0 +1,15 @@
+# Day 03
+
+```elixir
+Mix.install([
+  {:kino_aoc, "~> 0.1"}
+])
+```
+
+## Part 1
+```elixir
+{:ok, puzzle_input} =
+  KinoAOC.download_puzzle("2024", 03, System.fetch_env!("LB_AOC_SESSION"))
+```
+
+## Part 2

@@ -1,0 +1,84 @@
+# Day 01
+
+```elixir
+Mix.install([
+  {:kino_aoc, "~> 0.1"}
+])
+```
+
+## Part 1
+
+```elixir
+{:ok, puzzle_input} =
+  KinoAOC.download_puzzle("2024", "1", System.fetch_env!("LB_AOC_SESSION"))
+```
+
+```elixir
+example = """
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
+"""
+```
+
+```elixir
+pairs = puzzle_input
+  |> String.split("\n", trim: true)
+  |> Enum.map(fn line -> 
+    String.split(line, " ", trim: true) 
+    |> Enum.map(&String.to_integer(&1)) 
+  end)
+
+```
+
+```elixir
+lefts = pairs
+  |> Enum.sort_by(&Enum.at(&1,0), :asc)
+  |> Enum.map(&Enum.at(&1,0))
+
+```
+
+```elixir
+
+rights = pairs
+  |> Enum.sort_by(&Enum.at(&1,1), :asc)
+  |> Enum.map(&Enum.at(&1,1))
+```
+
+```elixir
+Enum.zip_reduce(lefts, rights, 0, fn l, r, acc -> 
+  abs(l - r) + acc
+  end) 
+```
+
+## Part 2
+
+```elixir
+pairs = puzzle_input
+  |> String.split("\n", trim: true)
+  |> Enum.map(fn line -> 
+    String.split(line, " ", trim: true) 
+    |> Enum.map(&String.to_integer(&1)) 
+  end)
+
+lefts = pairs
+  |> Enum.map(&Enum.at(&1,0))
+
+```
+
+```elixir
+rights = pairs
+  |> Enum.map(&Enum.at(&1,1))
+```
+
+```elixir
+lefts 
+  |> Enum.reduce(0, fn x, acc ->  
+    Enum.count(rights, &(&1 == x)) * x + acc 
+  end)
+```
+
+<!-- livebook:{"offset":1154,"stamp":{"token":"XCP.GLpyz5Y8i8wuCGCcaDoGZSW8Ulp_yTcUOe-WW9MVdMNmeIVgwds8AD6HnefhlssnFzw_N9WUiK68w51f-EFk-xOBvCHU5cdHddmLrHzD0U4Ef2hKDNI","version":2}} -->
